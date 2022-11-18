@@ -1,6 +1,8 @@
 import java.awt.Color;
 import java.awt.Font; //Font
 import java.awt.GridLayout; // GridLayout 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame; //Ctrl + Shift + O -> Import 단축키
@@ -43,14 +45,13 @@ public class Calculator extends JFrame{
 			else buttons[i].setBackground(Color.GRAY);
 			buttons[i].setForeground(Color.WHITE);
 			buttons[i].setBorderPainted(false); //테두리 없애기,
+			buttons[i].addActionListener(new PadActionListener());
 			buttonPanel.add(buttons[i]);
 			
 		}
 		
-	
 		add(inputSpace);
-		add(buttonPanel);
-		
+		add(buttonPanel);		
 		
 		//창의 제목,사이즈,보이기 등
 		setTitle("Calculator");
@@ -60,6 +61,19 @@ public class Calculator extends JFrame{
 		setResizable(false); //can't change the size
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//Close operation을 해줘야 창을 닫을때 실행 중인 프로그램도 같이 종료됨.
 		
+	}
+	//actionlistener를 상속시켜주고 actionperformed 메소드로 이벤트를 처리한다
+	class PadActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			String operation = e.getActionCommand(); // 어떤 버튼이 눌렸는지 받아오기
+			if(operation.equals("C")) {
+				inputSpace.setText("");
+			}else if(operation.equals("=")) {
+			
+		}else {
+			inputSpace.setText(inputSpace.getText()+ e.getActionCommand());
+		}
+	}
 	}
 	public static void main(String[] args) {
 	new Calculator();
